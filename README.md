@@ -2,7 +2,7 @@
 Website published to Github Pages
 
 ## Images
-Please upload images tot he ./images/ directory.
+Please upload images to the ./images/ directory.
 
 ## Content
 Please upload supporting information to the ./docs/ directory.
