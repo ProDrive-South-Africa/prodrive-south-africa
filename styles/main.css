@@ -1,0 +1,382 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f4f4f4;
+}
+
+header {
+  background: #35424a;
+  color: #ffffff;
+  padding: 10px 0;
+  text-align: center;
+}
+
+h1 {
+  margin: 0;
+  font-size: 2.5em;
+}
+
+nav {
+  width: 100%;
+  background: #003d6a;
+  padding: 0 20px;
+  box-sizing: border-box;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  display: flex;
+  align-items: center;
+  min-height: 60px;
+}
+
+.nav-title {
+  color: #fff;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-right: auto;
+  padding: 0 10px;
+  line-height: 60px;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  transition: all 0.3s;
+  margin-left: auto;
+}
+
+nav li {
+  margin: 0 16px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 18px 0;
+  display: block;
+  transition: color 0.2s;
+}
+
+nav a:hover {
+  color: #ffd700;
+}
+
+/* Hamburger styles */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  justify-content: center;
+  align-items: center;
+}
+
+.hamburger span {
+  height: 4px;
+  width: 24px;
+  background: #fff;
+  margin: 3px 0;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+    background: #003d6a;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 180px;
+    display: none;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    z-index: 9;
+  }
+  nav ul.active {
+    display: flex;
+  }
+  .hamburger {
+    display: flex;
+    position: absolute;
+    top: 14px;
+    right: 24px;
+    z-index: 10;
+  }
+  .nav-title {
+    font-size: 1.1rem;
+    padding: 0 6px;
+    line-height: 48px;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  nav a {
+    margin: 0 10px;
+  }
+}
+
+.hero {
+  background: linear-gradient(120deg, #005baa 0%, #0082c8 100%);
+  color: #fff;
+  padding: 100px 20px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  border-radius: 0 0 24px 24px;
+}
+
+.hero-content h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 1.2;
+  letter-spacing: 1px;
+}
+
+.hero .subtitle {
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin-top: 0;
+  opacity: 0.95;
+}
+
+.site-footer {
+  background: #003d6a;
+  color: #fff;
+  text-align: center;
+  padding: 18px 10px;
+  font-size: 1rem;
+  margin-top: 60px;
+  letter-spacing: 0.5px;
+}
+
+.contact-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  background: #f4f4f4;
+  padding: 40px 20px 30px 20px;
+  text-align: left;
+  flex-wrap: wrap;
+}
+
+.contact-info {
+  max-width: 320px;
+  min-width: 220px;
+}
+
+.contact-section h2 {
+  color: #005baa;
+  margin-bottom: 16px;
+  font-size: 2rem;
+}
+
+.contact-section p {
+  margin-bottom: 24px;
+  font-size: 1.1rem;
+  color: #222;
+}
+
+.map-container {
+  max-width: 400px;
+  min-width: 250px;
+  flex: 1 1 300px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.icon {
+  font-size: 1.2em;
+  vertical-align: middle;
+  margin-right: 8px;
+  color: #005baa;
+}
+
+.contact-info a {
+  color: #005baa;
+  text-decoration: none;
+  transition: text-decoration 0.2s;
+}
+
+.contact-info a:hover {
+  text-decoration: underline;
+}
+
+.courses-gallery {
+  background: #fff;
+  padding: 50px 20px 40px 20px;
+  text-align: center;
+}
+
+.courses-gallery h2 {
+  color: #005baa;
+  margin-bottom: 32px;
+  font-size: 2rem;
+}
+
+.card-row {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.course-card {
+  background: #f4f4f4;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+  padding: 32px 24px;
+  max-width: 320px;
+  min-width: 240px;
+  flex: 1 1 260px;
+  text-align: left;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.course-card h3 {
+  color: #0082c8;
+  margin-bottom: 16px;
+  font-size: 1.25rem;
+}
+
+.course-card p {
+  color: #222;
+  font-size: 1rem;
+}
+
+.course-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.13);
+}
+
+.image-gallery {
+  background: #f4f4f4;
+  padding: 50px 20px 40px 20px;
+  text-align: center;
+}
+
+.image-gallery h2 {
+  color: #005baa;
+  margin-bottom: 32px;
+  font-size: 2rem;
+}
+
+.gallery-row {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.gallery-row img {
+  width: 260px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.gallery-row img:hover {
+  transform: scale(1.04);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.13);
+}
+
+.team-row {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+.about-section {
+  background: #fff;
+  padding: 50px 20px 40px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.about-section h2 {
+  color: #005baa;
+  margin-bottom: 24px;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.about-section p {
+  color: #222;
+  font-size: 1.1rem;
+  margin-bottom: 32px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .contact-section {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 24px;
+  }
+  .contact-info {
+    max-width: 100%;
+  }
+  .map-container {
+    max-width: 100%;
+    width: 100%;
+  }
+  .card-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+  .course-card {
+    max-width: 100%;
+    min-width: 0;
+    width: 100%;
+  }
+  .gallery-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+  .gallery-row img {
+    width: 100%;
+    max-width: 340px;
+    height: 180px;
+  }
+  .team-row {
+    flex-direction: row; /* Keep horizontal on all screen sizes */
+    flex-wrap: wrap;
+    gap: 32px;
+  }
+}
