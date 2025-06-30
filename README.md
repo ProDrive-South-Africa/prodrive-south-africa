@@ -7,6 +7,8 @@ Website published to Github Pages
 ```
 my-github-pages-site
 ├── index.html        # Main HTML document for the website
+├── docs              # Directory containing document files
+├── images            # Directory containing image files
 ├── styles            # Directory containing CSS files
 │   └── main.css      # Styles for the website
 ├── scripts           # Directory containing JavaScript files
