@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rea Vaya - Driver Training & Compliance Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .login-screen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .login-card {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .dashboard {
+            display: none;
+            background: #f8f9fa;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-tab {
+            padding: 10px 20px;
+            background: #e9ecef;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .status-badge {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-good {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-danger {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s;
+        }
+
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .metric:last-child {
+            border-bottom: none;
+        }
+
+        .metric-value {
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .training-module {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .training-module:hover {
+            transform: translateY(-2px);
+        }
+
+        .module-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .module-title {
+            font-weight: 600;
+        }
+
+        .module-duration {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .compliance-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .compliance-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+
+        .compliance-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .compliance-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .notification {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 600px;
+            margin: 50px auto;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .gamification {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .achievement {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            flex: 1;
+        }
+
+        .achievement-icon {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-tabs {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .nav-tab {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .gamification {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-card">
+            <div class="logo">Rea Vaya</div>
+            <div class="subtitle">Driver Training & Compliance Platform</div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="userType">User Type</label>
+                    <select id="userType" required>
+                        <option value="">Select your role</option>
+                        <option value="driver">Bus Driver</option>
+                        <option value="manager">Fleet Manager</option>
+                        <option value="hr">HR Compliance Officer</option>
+                        <option value="executive">Operations Executive</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="Enter your username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+                
+                <button type="submit" class="btn">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="dashboard">
+        <div class="header">
+            <div class="header-content">
+                <div class="logo">Rea Vaya Platform</div>
+                <div class="nav-tabs">
+                    <button class="nav-tab active" onclick="showTab('overview')">Overview</button>
+                    <button class="nav-tab" onclick="showTab('training')">Training</button>
+                    <button class="nav-tab" onclick="showTab('compliance')">Compliance</button>
+                    <button class="nav-tab" onclick="showTab('reports')">Reports</button>
+                </div>
+                <div class="user-info">
+                    <div class="avatar" id="userAvatar">J</div>
+                    <div>
+                        <div id="userName">James Smith</div>
+                        <div style="font-size: 12px; color: #666;" id="userRole">Bus Driver</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- Overview Tab -->
+            <div id="overview" class="tab-content active">
+                <div class="notification">
+                    <strong>Reminder:</strong> Your defensive driving certification expires in 14 days. <a href="#" onclick="showTab('training')">Renew now</a>
+                </div>
+
+                <div class="gamification">
+                    <div class="achievement">
+                        <div class="achievement-icon">🏆</div>
+                        <div>Safety Score</div>
+                        <div style="font-size: 24px; font-weight: bold;">85%</div>
+                        <div style="font-size: 12px;">+15% this month</div>
+                    </div>
+                    <div class="achievement">
+                        <div class="achievement-icon">⭐</div>
+                        <div>Training Streak</div>
+                        <div style="font-size: 24px; font-weight: bold;">12</div>
+                        <div style="font-size: 12px;">days</div>
+                    </div>
+                    <div class="achievement">
+                        <div class="achievement-icon">📈</div>
+                        <div>Rank</div>
+                        <div style="font-size: 24px; font-weight: bold;">#7</div>
+                        <div style="font-size: 12px;">out of 45</div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Certification Status</div>
+                            <div class="status-badge status-warning">2 Expiring</div>
+                        </div>
+                        <div class="metric">
+                            <span>Driver's License</span>
+                            <span class="metric-value">Valid until 2026</span>
+                        </div>
+                        <div class="metric">
+                            <span>Medical Certificate</span>
+                            <span class="metric-value">Valid until Dec 2025</span>
+                        </div>
+                        <div class="metric">
+                            <span>Defensive Driving</span>
+                            <span class="metric-value" style="color: #dc3545;">Expires Aug 15</span>
+                        </div>
+                        <div class="metric">
+                            <span>Safety Training</span>
+                            <span class="metric-value" style="color: #dc3545;">Expires Aug 20</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Training Progress</div>
+                            <div class="status-badge status-good">On Track</div>
+                        </div>
+                        <div>
+                            <div style="margin-bottom: 10px;">Overall Completion: 78%</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 78%;"></div>
+                            </div>
+                        </div>
+                        <div class="metric">
+                            <span>Completed Modules</span>
+                            <span class="metric-value">14/18</span>
+                        </div>
+                        <div class="metric">
+                            <span>Hours Logged</span>
+                            <span class="metric-value">42.5</span>
+                        </div>
+                        <div class="metric">
+                            <span>Next Due</span>
+                            <span class="metric-value">Emergency Procedures</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Performance Metrics</div>
+                            <div class="status-badge status-good">Improving</div>
+                        </div>
+                        <div class="metric">
+                            <span>Safety Incidents</span>
+                            <span class="metric-value">0 (Last 90 days)</span>
+                        </div>
+                        <div class="metric">
+                            <span>On-Time Performance</span>
+                            <span class="metric-value">94%</span>
+                        </div>
+                        <div class="metric">
+                            <span>Fuel Efficiency</span>
+                            <span class="metric-value">8.2 km/L</span>
+                        </div>
+                        <div class="metric">
+                            <span>Customer Rating</span>
+                            <span class="metric-value">4.8/5</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Training Tab -->
+            <div id="training" class="tab-content">
+                <h2 style="margin-bottom: 20px;">Training Modules</h2>
+                
+                <div class="training-module" onclick="startTraining('Defensive Driving Renewal')">
+                    <div class="module-header">
+                        <div class="module-title">🚗 Defensive Driving Renewal</div>
+                        <div class="module-duration">45 mins</div>
+                    </div>
+                    <div style="color: #666;">Required certification renewal - Due in 14 days</div>
+                    <div class="progress-bar" style="margin-top: 10px;">
+                        <div class="progress-fill" style="width: 0%;"></div>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <span class="status-badge status-danger">Urgent</span>
+                    </div>
+                </div>
+
+                <div class="training-module" onclick="startTraining('Emergency Procedures')">
+                    <div class="module-header">
+                        <div class="module-title">🚨 Emergency Procedures</div>
+                        <div class="module-duration">30 mins</div>
+                    </div>
+                    <div style="color: #666;">Fire safety, evacuation protocols, first aid basics</div>
+                    <div class="progress-bar" style="margin-top: 10px;">
+                        <div class="progress-fill" style="width: 60%;"></div>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <span class="status-badge status-warning">In Progress</span>
+                    </div>
+                </div>
+
+                <div class="training-module" onclick="startTraining('Customer Service Excellence')">
+                    <div class="module-header">
+                        <div class="module-title">😊 Customer Service Excellence</div>
+                        <div class="module-duration">25 mins</div>
+                    </div>
+                    <div style="color: #666;">Communication skills, conflict resolution, accessibility</div>
+                    <div class="progress-bar" style="margin-top: 10px;">
+                        <div class="progress-fill" style="width: 100%;"></div>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <span class="status-badge status-good">Completed</span>
+                    </div>
+                </div>
+
+                <div class="training-module" onclick="startTraining('Vehicle Inspection Procedures')">
+                    <div class="module-header">
+                        <div class="module-title">🔧 Vehicle Inspection Procedures</div>
+                        <div class="module-duration">20 mins</div>
+                    </div>
+                    <div style="color: #666;">Pre-trip and post-trip inspection protocols</div>
+                    <div class="progress-bar" style="margin-top: 10px;">
+                        <div class="progress-fill" style="width: 100%;"></div>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <span class="status-badge status-good">Completed</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Compliance Tab -->
+            <div id="compliance" class="tab-content">
+                <h2 style="margin-bottom: 20px;">Compliance Dashboard</h2>
+                
+                <table class="compliance-table">
+                    <thead>
+                        <tr>
+                            <th>Requirement</th>
+                            <th>Status</th>
+                            <th>Expiry Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Driver's License</td>
+                            <td><span class="status-badge status-good">Valid</span></td>
+                            <td>March 15, 2026</td>
+                            <td><button class="btn-secondary">View</button></td>
+                        </tr>
+                        <tr>
+                            <td>Medical Certificate</td>
+                            <td><span class="status-badge status-good">Valid</span></td>
+                            <td>December 10, 2025</td>
+                            <td><button class="btn-secondary">View</button></td>
+                        </tr>
+                        <tr>
+                            <td>Defensive Driving</td>
+                            <td><span class="status-badge status-danger">Expiring</span></td>
+                            <td>August 15, 2025</td>
+                            <td><button class="btn-primary" onclick="showTab('training')">Renew</button></td>
+                        </tr>
+                        <tr>
+                            <td>Safety Training</td>
+                            <td><span class="status-badge status-danger">Expiring</span></td>
+                            <td>August 20, 2025</td>
+                            <td><button class="btn-primary" onclick="showTab('training')">Renew</button></td>
+                        </tr>
+                        <tr>
+                            <td>Customer Service</td>
+                            <td><span class="status-badge status-good">Valid</span></td>
+                            <td>November 5, 2025</td>
+                            <td><button class="btn-secondary">View</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Reports Tab -->
+            <div id="reports" class="tab-content">
+                <h2 style="margin-bottom: 20px;">Performance Reports</h2>
+                
+                <div class="dashboard-grid">
+                    <div class="card">
+                        <div class="card-title" style="margin-bottom: 20px;">Monthly Safety Report</div>
+                        <div class="metric">
+                            <span>Safety Score</span>
+                            <span class="metric-value">85% (+15%)</span>
+                        </div>
+                        <div class="metric">
+                            <span>Incidents</span>
+                            <span class="metric-value">0</span>
+                        </div>
+                        <div class="metric">
+                            <span>Violations</span>
+                            <span class="metric-value">0</span>
+                        </div>
+                        <div class="metric">
+                            <span>Training Hours</span>
+                            <span class="metric-value">12.5</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title" style="margin-bottom: 20px;">Operational Metrics</div>
+                        <div class="metric">
+                            <span>On-Time Rate</span>
+                            <span class="metric-value">94%</span>
+                        </div>
+                        <div class="metric">
+                            <span>Route Completion</span>
+                            <span class="metric-value">99.2%</span>
+                        </div>
+                        <div class="metric">
+                            <span>Fuel Efficiency</span>
+                            <span class="metric-value">8.2 km/L</span>
+                        </div>
+                        <div class="metric">
+                            <span>Maintenance Issues</span>
+                            <span class="metric-value">2</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-title" style="margin-bottom: 20px;">Training Progress</div>
+                        <div class="metric">
+                            <span>Modules Completed</span>
+                            <span class="metric-value">14/18</span>
+                        </div>
+                        <div class="metric">
+                            <span>Completion Rate</span>
+                            <span class="metric-value">78%</span>
+                        </div>
+                        <div class="metric">
+                            <span>Average Score</span>
+                            <span class="metric-value">87%</span>
+                        </div>
+                        <div class="metric">
+                            <span>Time Invested</span>
+                            <span class="metric-value">42.5 hours</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Training Modal -->
+    <div id="trainingModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle">Training Module</h2>
+            <div id="modalContent">
+                <p>Welcome to the training module. This interactive session will cover all the essential topics.</p>
+                <div style="margin: 20px 0;">
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 15px;">
+                        <h3>Module Content:</h3>
+                        <ul style="margin-left: 20px;">
+                            <li>Introduction and objectives</li>
+                            <li>Key concepts and procedures</li>
+                            <li>Interactive scenarios</li>
+                            <li>Assessment quiz</li>
+                        </ul>
+                    </div>
+                    <div style="text-align: center;">
+                        <button class="btn" onclick="completeTraining()">Start Training</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentUser = {
+            type: '',
+            name: '',
+            avatar: ''
+        };
+
+        // Login functionality
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const userType = document.getElementById('userType').value;
+            const username = document.getElementById('username').value;
+            
+            if (userType && username) {
+                // Set user data based on type
+                switch(userType) {
+                    case 'driver':
+                        currentUser = {
+                            type: 'driver',
+                            name: 'James Smith',
+                            avatar: 'J',
+                            role: 'Bus Driver'
+                        };
+                        break;
+                    case 'manager':
+                        currentUser = {
+                            type: 'manager',
+                            name: 'Sarah Johnson',
+                            avatar: 'S',
+                            role: 'Fleet Manager'
+                        };
+                        break;
+                    case 'hr':
+                        currentUser = {
+                            type: 'hr',
+                            name: 'Mike Wilson',
+                            avatar: 'M',
+                            role: 'HR Compliance Officer'
+                        };
+                        break;
+                    case 'executive':
+                        currentUser = {
+                            type: 'executive',
+                            name: 'Lisa Chen',
+                            avatar: 'L',
+                            role: 'Operations Executive'
+                        };
+                        break;
+                }
+                
+                // Update UI with user info
+                document.getElementById('userName').textContent = currentUser.name;
+                document.getElementById('userRole').textContent = currentUser.role;
+                document.getElementById('userAvatar').textContent = currentUser.avatar;
+                
+                // Show dashboard
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'block';
+                
+                // Customize dashboard based on user type
+                customizeDashboard(userType);
+            }
+        });
+
+        function customizeDashboard(userType) {
+            const overviewTab = document.getElementById('overview');
+            
+            if (userType === 'manager') {
+                // Fleet manager view
+                overviewTab.innerHTML = `
+                    <div class="notification">
+                        <strong>Alert:</strong> 2 drivers need certification renewal this week. 
+                        <a href="#" onclick="showTab('compliance')">View details</a>
+                    </div>
+                    
+                    <div class="dashboard-grid">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">Fleet Compliance Status</div>
+                                <div class="status-badge status-good">98% Compliant</div>
+                            </div>
+                            <div class="metric">
+                                <span>Total Drivers</span>
+                                <span class="metric-value">45</span>
+                            </div>
+                            <div class="metric">
+                                <span>Fully Compliant</span>
+                                <span class="metric-value">44</span>
+                            </div>
+                            <div class="metric">
+                                <span>Need Attention</span>
+                                <span class="metric-value" style="color: #dc3545;">1</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">Safety Metrics</div>
+                                <div class="status-badge status-good">Excellent</div>
+                            </div>
+                            <div class="metric">
+                                <span>Incidents (30 days)</span>
+                                <span class="metric-value">0</span>
+                            </div>
+                            <div class="metric">
+                                <span>Average Safety Score</span>
+                                <span class="metric-value">87%</span>
+                            </div>
+                            <div class="metric">
+                                <span>Training Completion</span>
+                                <span class="metric-value">94%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">Operational Overview</div>
+                                <div class="status-badge status-good">On Track</div>
+                            </div>
+                            <div class="metric">
+                                <span>Fleet Utilization</span>
+                                <span class="metric-value">89%</span>
+                            </div>
+                            <div class="metric">
+                                <span>On-Time Performance</span>
+                                <span class="metric-value">91%</span>
+                            </div>
+                            <div class="metric">
+                                <span>Maintenance Due</span>
+                                <span class="metric-value">3 vehicles</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function showTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(tab => tab.classList.remove('active'));
+            
+            // Remove active class from all nav tabs
+            const navTabs = document.querySelectorAll('.nav-tab');
+            navTabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked nav tab
+            event.target.classList.add('active');
+        }
+
+        function startTraining(moduleName) {
+            document.getElementById('modalTitle').textContent = moduleName;
+            document.getElementById('trainingModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('trainingModal').style.display = 'none';
+        }
+
+        function completeTraining() {
+            alert('Training module completed successfully! Your progress has been updated.');
+            closeModal();
+            
+            // Update progress (simulate)
+            const progressBars = document.querySelectorAll('.progress-fill');
+            progressBars.forEach(bar => {
+                const currentWidth = parseInt(bar.style.width) || 0;
+                if (currentWidth < 100) {
+                    bar.style.width = Math.min(currentWidth + 20, 100) + '%';
+                }
+            });
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('trainingModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // Simulate real-time updates
+        setInterval(function() {
+            const timeElement = document.querySelector('.metric-value');
+            if (timeElement && timeElement.textContent.includes('days')) {
+                // Update countdown for expiring certifications
+                const currentDays = parseInt(timeElement.textContent);
+                if (currentDays > 0) {
+                    timeElement.textContent = (currentDays - 1) + ' days';
+                }
+            }
+        }, 60000); // Update every minute (simulated as faster for demo)
+
+        // Add some interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    card.style.transition = 'opacity 0.5s, transform 0.5s';
+                    
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100);
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
